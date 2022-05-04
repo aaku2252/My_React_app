@@ -4,7 +4,7 @@ import "./ExpenseForm.css";
 const ExpenseForm = (props) => {
     const [enteredTitle, setEnteredTitle] = useState("");
     const [enteredAmount, setEnteredAmount] = useState("");
-    const [enteredDate, setEnterdDate] = useState(
+    const [enteredDate, setEnteredDate] = useState(
         new Date().toISOString().slice(0, 10)
     );
 
@@ -28,7 +28,7 @@ const ExpenseForm = (props) => {
         // });
     };
     const dateChangeHandler = (event) => {
-        setEnterdDate(event.target.value);
+        setEnteredDate(event.target.value);
         // setUserInput(() => {
         //     return { ...userInput, enteredDate: event.target.value };
         // });
@@ -39,12 +39,12 @@ const ExpenseForm = (props) => {
         const expenseData = {
             title: enteredTitle,
             amount: enteredAmount,
-            date: enteredDate,
+            date: new Date(enteredDate),
         };
         props.onSaveExpenseData(expenseData);
         setEnteredTitle("");
         setEnteredAmount("");
-        setEnterdDate(enteredDate);
+        setEnteredDate(new Date(enteredDate));
     };
 
     return (
@@ -73,14 +73,14 @@ const ExpenseForm = (props) => {
                     <input
                         type="date"
                         value={enteredDate}
-                        // defaultValue={new Date().toISOString().slice(0, 10)}
-                        min="2019-01-01"
-                        max="2022-04-30"
                         onChange={dateChangeHandler}
                     />
                 </div>
             </div>
             <div className="new-expense__actions">
+                <button type="button" onClick={props.onStartEditing}>
+                    Cancel
+                </button>
                 <button type="submit">Add Expense</button>
             </div>
         </form>
